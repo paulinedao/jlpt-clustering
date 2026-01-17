@@ -5,8 +5,15 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "gensim>=4.4.0",
+    "dash>=3.3.0",
+    "matplotlib>=3.10.8",
+    "numpy<2",
     "pandas>=2.3.3",
+    "plotly>=6.5.2",
+    "scikit-learn>=1.8.0",
     "sudachidict-core>=20251022",
     "sudachipy>=0.6.10",
+    "torch==2.2.2",
+    "torchvision==0.17.2",
+    "transformers>=4.57.6",
 ]
