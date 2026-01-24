@@ -21,48 +21,47 @@ This project explores the semantic structure of basic Japanese vocabulary by app
 
 ## Pipeline steps <a name= "pipeline-steps"></a>
 
+The dataset [JLPT vocabulary by level](https://www.kaggle.com/datasets/robinpourtaud/jlpt-words-by-level) comes from Kaggle.
+
+
 **Part of speech filtering**
 
-morphological analyis for Part-Of-Speech filtering
-- keeps multi-token words
-- removes obvious noise (punctuation like ;)
-- applies POS filtering (名詞・動詞・形容詞)
-- normalizes single-token words to dictionary form
-- preserves original surface form for compounds
-- saves a clean CSV ready for embeddings
-
-Linguistic / morphological tokenization (Sudachi)
+Part of speech (POS) filtering is a technique that assigns a label and separate words based on their grammatical  role, for example noun, verb or adjective.
+In that case I applied part of speech filtering using the tokenizer from the library SudachiPy, a Japanese morphological analyzer. 
+POS involves morphological analyis, that breaks down the word into their constituent morpheme to determine their part-of-speech. I kept multi-token words. Moreover, I filtered the words labeled as "名詞", "動詞", "形容詞" meaning nouns, verbs and adjectives and removed adverbs, onomatopoeia, pronouns etc... and obvious noise like words containing punctuation. This step will help for the downstream clustering step where I aim to have more meaningful clusters.
 
 **Tokenize and Embed**
 
-
-tokenize words by treating each japanese word as a single token
-embedding with bert model `sonoisa/sentence-bert-base-ja-mean-tokens` 
-Normalize embeddings usinng standard scaler
+I tokenized the words by treating each japanese word as a single token. In that case, this was simple since the dataset is a column of japanese words, so one word per row. I used the Japanese sentence-BERT embedding model [`sonoisa/sentence-bert-base-ja-mean-tokens`](https://huggingface.co/sonoisa/sentence-bert-base-ja-mean-tokens). The vectors are saved in the `data` folder as `jlpt_word_vectors_bert.npy`.  Next, the embeddings were normalizede using standard scaler from scikit-learn.
 
 **Dimensionality reduction**
 
 
-UMAP (Uniform Manifold Approximation and Projection) for dimensionality reduction to 15 dimension (15D)
+Before clustering, I used UMAP (Uniform Manifold Approximation and Projection) for dimensionality reduction, reducing the vectors' dimension to 15 dimension (15D). The random seed was set to a specific value to ensure reproducibility. 
 
 **Clusters discovery**
 
 
-Cluster with HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise)
-clustering algorithm that finds groups (clusters) of similar data points based on density
-
-Clusters found: 20
-Noise points: 84
+Clustering was performed using HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise), a
+clustering algorithm that finds groups (clusters) of similar data points based on density.
 
 **Visualization**
 
 
-Application of a reduction to 2D to visualize using UMAP (2D)
+The embeddings first went through a dimensionality reduction using UMAP to get a 2D dimension. The image produced and saved as a png is the result of a 2D visualization of the clusters using matplotlib. One needs to take into account that UMAP was used as a preprocessing step and so distance in 2D are approximate. 
 
 <p align="center">
   <img src="data/jlpt_umap_clusters.png" alt="clusters" width="400"/>
 </p>
 
+**App**
+
+The app uses dash and plotly to display the 2D visualization of the clusters. When the user hover over the data point, the japanese word and its translation are displayed. The word `フィルム` (pronounce firumu, film) clusters with the word `映画` (pronounce Eiga, movie).
+Moreover, clicking on the data point displays the japanese words at the bottom with the english translation below, to allow the user or a student to copy the word and use it. 
+
+<p align="center">
+  <img src="data/app_page.png" alt="app" width="800"/>
+</p>
 
 ## Installation <a name= "installation"></a>
 
@@ -87,7 +86,11 @@ uv add "umap-learn==0.5.6"
 uv add hdbscan
 ```
 
+With the up-to-date `pyproject.toml`, it is usually sufficient to run in the terminal (root project):
 
+```
+uv sync
+```
 
 ## Usage <a name= "usage"></a>
 
