@@ -11,8 +11,8 @@
 **Motivation**
 
 
-When learning a new language, an important part of it is acquiring vocabulary (nouns, verbs, adjectives) to be able to make proper sentences. The Japanese Language proficiency Test (JLPT) ranges from the easiest level N5 (N for Nihongo) to the most difficult level N1. To reach this level, it requires mastering grammatical aspects along with learning 2000 Kanji, 10.000 vocabulary words. Indeed effective language learning relies on acquiring vocabulary by memorizing it. There are diverse strategies to memorize vocabulary and one of them is topic-based learning. With this strategy, the student avoids learning isolated words that may not have any relation to each other and that might be difficult to use them together in the same conversation or even the same sentence. 
-In this strategy, topic-based learning beats pure "memorization" by heart of random list of words.
+When learning a new language, an important part of it is acquiring vocabulary (nouns, verbs, adjectives) to be able to make proper sentences. The Japanese Language proficiency Test (JLPT) ranges from the easiest level N5 (N for Nihongo) to the most difficult level N1. To reach this level, it requires mastering grammatical aspects along with learning 2000 Kanji, 10.000 vocabulary words. Indeed effective language learning relies on acquiring vocabulary by memorizing it. **But how can we "memorize" vocabulary in an efficient manner?** There are diverse strategies to memorize vocabulary and one of them is topic-based learning. With this strategy, the student avoids learning isolated words that may not have any relation to each other and that might be difficult to use them together in the same conversation or even the same sentence. 
+In this strategy, topic-based learning beats pure "memorization by heart" of random list of words.
 
 
 From there comes the idea of this project to cluster japanese words from the simplest level N5 to see which words could be learned or used together and facilitate language learning.
