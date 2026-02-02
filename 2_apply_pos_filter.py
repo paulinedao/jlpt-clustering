@@ -6,8 +6,8 @@ ALLOWED_POS = {"名詞", "動詞", "形容詞"}  # nouns, verbs, adjectives
 BAD_CHAR_PATTERN = re.compile(r"[;、,]")
 
 def main(input_csv=None, output_csv=None):
-    input_csv = "data/jlpt_vocab_n5.csv"
-    output_csv = "data/jlpt_words_pos_filtered.csv"
+    #input_csv = "data/jlpt_vocab_n5.csv"
+    #output_csv = "data/jlpt_words_pos_filtered.csv"
     
     df = pd.read_csv(input_csv)
 
@@ -71,4 +71,5 @@ def analyze_word(word):
 
 
 if __name__ == "__main__":
-    main()
+    main(input_csv=snakemake.input.input_csv, 
+         output_csv=snakemake.output.output_csv)
