@@ -101,7 +101,7 @@ To recreate the outputs, in the terminal, run:
 uv run snakemake -c1
 ```
 
-To run the app using:
+To run the app use:
 ```
 uv run app.py
 ```
