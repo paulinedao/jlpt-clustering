@@ -1,11 +1,11 @@
 import numpy as np
 import umap
 
-INPUT_EMB = "data/jlpt_embeddings_normalized.npy"
-OUTPUT_EMB = "data/jlpt_embeddings_umap_15d.npy"
+#input_emb = "data/jlpt_embeddings_normalized.npy"
+#output_emb = "data/jlpt_embeddings_umap_15d.npy"
 
-def main():
-    X = np.load(INPUT_EMB)
+def main(input_emb=None, output_emb=None):
+    X = np.load(input_emb)
 
     reducer = umap.UMAP(
         n_neighbors=15,
@@ -16,9 +16,10 @@ def main():
     )
 
     X_reduced = reducer.fit_transform(X)
-    np.save(OUTPUT_EMB, X_reduced)
+    np.save(output_emb, X_reduced)
 
     print("UMAP-reduced shape:", X_reduced.shape)
 
 if __name__ == "__main__":
-    main()
+    main(input_emb=snakemake.input.input_emb, 
+        output_emb=snakemake.output.output_emb)
