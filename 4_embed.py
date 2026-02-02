@@ -3,22 +3,22 @@ import numpy as np
 import torch
 from transformers import AutoTokenizer, AutoModel
 
-TOKENS_JSON = "data/jlpt_tokens.json"  # your tokenized words JSON
-MODEL_NAME = "sonoisa/sentence-bert-base-ja-mean-tokens"  # Japanese sentence-BERT
-OUTPUT_VECTORS = "data/jlpt_word_vectors_bert.npy"
-OUTPUT_WORDS = "data/jlpt_words_used_bert.csv"
+#token_json = "data/jlpt_tokens.json"  # your tokenized words JSON
+#model_name = "sonoisa/sentence-bert-base-ja-mean-tokens"  # Japanese sentence-BERT
+#output_vectors = "data/jlpt_word_vectors_bert.npy"
+#output_words = "data/jlpt_words_used_bert.csv"
 
-def main():
+def main(token_json, model_name, output_vectors, output_words):
     # Load words
-    with open(TOKENS_JSON, "r", encoding="utf-8") as f:
+    with open(token_json, "r", encoding="utf-8") as f:
         tokenized = json.load(f)
 
     # Flatten to list of words (each sublist has one word)
     words = [t[0] for t in tokenized]
 
     # Load BERT model and tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-    model = AutoModel.from_pretrained(MODEL_NAME)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModel.from_pretrained(model_name)
     model.eval()  # evaluation mode
 
     embeddings = []
@@ -33,9 +33,9 @@ def main():
     embeddings = np.array(embeddings)
 
     # Save embeddings and words
-    np.save(OUTPUT_VECTORS, embeddings)
+    np.save(output_vectors, embeddings)
     import pandas as pd
-    pd.DataFrame({"Word": words}).to_csv(OUTPUT_WORDS, index=False)
+    pd.DataFrame({"Word": words}).to_csv(output_words, index=False)
 
     print(f"Embedded {len(words)} words")
     print(f"Embedding shape: {embeddings.shape}")
@@ -46,4 +46,7 @@ def mean_pooling(model_output, attention_mask):
     return (token_embeddings * input_mask_expanded).sum(1) / input_mask_expanded.sum(1)
 
 if __name__ == "__main__":
-    main()
+    main(token_json=snakemake.input.token_json, 
+         model_name=snakemake.params.model_name, 
+         output_vectors=snakemake.output.output_vectors, 
+         output_words=snakemake.output.output_words)
