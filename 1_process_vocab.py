@@ -1,8 +1,8 @@
 import pandas as pd
 
 def main(input_csv=None, output_csv=None):
-    input_csv = 'data/jlpt_vocab.csv'
-    output_csv = 'data/jlpt_vocab_n5.csv'
+    #input_csv = 'data/jlpt_vocab.csv'
+    #output_csv = 'data/jlpt_vocab_n5.csv'
     process_vocab(input_csv, output_csv)
     
 def process_vocab(input_csv, output_csv):
@@ -15,4 +15,5 @@ def process_vocab(input_csv, output_csv):
     )
     
 if __name__ == "__main__":
-    main()
+    main(input_csv=snakemake.input.input_csv, 
+         output_csv=snakemake.output.output_csv)
