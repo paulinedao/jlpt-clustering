@@ -51,7 +51,7 @@ clustering algorithm that finds groups (clusters) of similar data points based o
 The embeddings first went through a dimensionality reduction using UMAP to get a 2D dimension. The image produced and saved as a png is the result of a 2D visualization of the clusters using matplotlib. One needs to take into account that UMAP was used as a preprocessing step and so distance in 2D are approximate. 
 
 <p align="center">
-  <img src="data/jlpt_umap_clusters.png" alt="clusters" width="400"/>
+  <img src="data/jlpt_umap_clusters_1.png" alt="clusters" width="400"/>
 </p>
 
 **App**
@@ -84,6 +84,8 @@ uv add "llvmlite==0.43"
 uv add "numba==0.60"
 uv add "umap-learn==0.5.6"
 uv add hdbscan
+ud add snakemake
+uv add "pulp<2.8.0"
 ```
 
 With the up-to-date `pyproject.toml`, it is usually sufficient to run in the terminal (root project):
@@ -94,7 +96,12 @@ uv sync
 
 ## Usage <a name= "usage"></a>
 
-Run the app using:
+To recreate the outputs, in the terminal, run:
+```
+uv run snakemake -c1
+```
+
+To run the app using:
 ```
 uv run app.py
 ```
